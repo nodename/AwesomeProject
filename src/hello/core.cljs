@@ -1,4 +1,5 @@
-(ns hello.core)
+(ns hello.core
+  (:require [om.next :as om :refer-macros [defui]]))
 
 (enable-console-print!)
 
@@ -17,25 +18,26 @@
               :justifyContent "center"
               :alignItems "center"
               :backgroundColor "#F5FCFF"}
-  :welcome {:fontSize 20
+  :welcome {:fontSize 24
             :textAlign "center"
             :margin 10}
   :instructions {:textAlign "center"
-                 :color "#F5FCFF"
+                 :color "#333333"
                  :marginBottom 5}})))
 
 (defn render
       []
       (View #js {:style (aget styles "container")}
-            (Text {:style (aget styles "welcome")}
+            (Text (clj->js {:style (aget styles "welcome")})
                   "Welcome to React Native!")
-            (Text {:style (aget styles "instructions")}
+            (Text (clj->js {:style (aget styles "instructions")})
                   "To get started, edit src/hello/core.cljs")
-            (Text {:style (aget styles "instructions")}
+            (Text (clj->js {:style (aget styles "instructions")})
                   "Shake or press menu button for dev menu")))
 
 (def create-class (aget React "createClass"))
 (def AwesomeProject (create-class #js {:render render}))
+
 
 (def register-component (aget AppRegistry "registerComponent"))
 (register-component "AwesomeProject" (fn [] AwesomeProject))
