@@ -2,6 +2,11 @@
 #
 .DS_Store
 
+# cljs compilation results
+#
+index.android.js
+out
+
 # Xcode
 #
 build/
