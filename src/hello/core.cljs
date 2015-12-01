@@ -9,8 +9,19 @@
 
 (def create-element (aget React "createElement"))
 
-(def Text (partial create-element (aget React "Text")))
-(def View (partial create-element (aget React "View")))
+(defn view
+      [opts & children]
+      (apply create-element
+             (aget React "View")
+             (clj->js opts)
+             children))
+
+(defn text
+      [opts & children]
+      (apply create-element
+             (aget React "Text")
+             (clj->js opts)
+             children))
 
 
 (def styles (.create StyleSheet (clj->js {
@@ -27,12 +38,12 @@
 
 (defn render
       []
-      (View #js {:style (aget styles "container")}
-            (Text (clj->js {:style (aget styles "welcome")})
+      (view {:style (aget styles "container")}
+            (text {:style (aget styles "welcome")}
                   "Welcome to React Native!")
-            (Text (clj->js {:style (aget styles "instructions")})
+            (text {:style (aget styles "instructions")}
                   "To get started, edit src/hello/core.cljs")
-            (Text (clj->js {:style (aget styles "instructions")})
+            (text {:style (aget styles "instructions")}
                   "Shake or press menu button for dev menu")))
 
 (def create-class (aget React "createClass"))
